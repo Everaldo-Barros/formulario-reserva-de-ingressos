@@ -1,4 +1,39 @@
-.container-home {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --preto: #0F0F0F;
+    --vermelho: #E31E24;
+    --vermelho-escuro: #B71C1C;
+    --cinza-escuro: #2C2C2C;
+    --cinza-claro: #E0E0E0;
+    --branco: #FFFFFF;
+    --sucesso: #1B5E20;
+    --erro: #B71C1C;
+    --fundo-sucesso: #E8F5E9;
+    --fundo-erro: #FFEBEE;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--preto);
+    background: linear-gradient(135deg, var(--preto) 0%, #2C2C2C 50%, var(--vermelho) 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.pagina {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px 0;
+}
+
+.container, .container-home {
     width: 100%;
     max-width: 720px;
     background: var(--branco);
@@ -8,8 +43,205 @@
     animation: surgir 0.6s ease-out;
 }
 
-.conteudo {
+@keyframes surgir {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.cabecalho {
+    background: var(--preto);
+    color: var(--branco);
     padding: 30px;
+    text-align: center;
+}
+
+.cabecalho h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+}
+
+.cabecalho p {
+    font-size: 0.95rem;
+    color: #CCCCCC;
+}
+
+.linha-destaque {
+    height: 4px;
+    background: var(--vermelho);
+    border-radius: 2px;
+    margin-top: 15px;
+}
+
+form, .conteudo {
+    padding: 30px;
+}
+
+.secao {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed var(--cinza-claro);
+}
+
+.secao:last-of-type {
+    border-bottom: none;
+    margin-bottom: 10px;
+}
+
+.secao h2 {
+    font-size: 1.05rem;
+    color: var(--preto);
+    font-weight: 700;
+    margin-bottom: 18px;
+    padding-left: 10px;
+    border-left: 4px solid var(--vermelho);
+}
+
+.grid-campos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 20px;
+}
+
+.campo, .campo-pequeno {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-pequeno {
+    max-width: 240px;
+    margin-top: 16px;
+}
+
+label {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--cinza-escuro);
+    margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="number"],
+select,
+textarea {
+    padding: 11px 14px;
+    border: 2px solid #BDBDBD;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background: #FAFAFA;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--vermelho);
+    box-shadow: 0 0 0 3px rgba(227, 30, 36, 0.15);
+    background: var(--branco);
+}
+
+.opcoes-radio {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.opcao-radio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--cinza-escuro);
+    position: relative;
+}
+
+.opcao-radio input {
+    display: none;
+}
+
+.opcao-radio .marcador {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #9E9E9E;
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.25s ease;
+}
+
+.opcao-radio input:checked + .marcador {
+    border-color: var(--vermelho);
+    box-shadow: inset 0 0 0 5px var(--vermelho);
+}
+
+.caixa-confirmacao {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--cinza-escuro);
+}
+
+.caixa-confirmacao input {
+    display: none;
+}
+
+.caixa-confirmacao .marcador {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #9E9E9E;
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.caixa-confirmacao input:checked + .marcador {
+    background: var(--vermelho);
+    border-color: var(--vermelho);
+}
+
+.caixa-confirmacao input:checked + .marcador::after {
+    content: '✓';
+    position: absolute;
+    color: var(--branco);
+    font-size: 13px;
+    font-weight: bold;
+    left: 3px;
+    top: -1px;
+}
+
+button#enviar, .botao-principal {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(90deg, var(--vermelho-escuro), var(--vermelho));
+    color: var(--branco);
+    border: none;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(183, 28, 28, 0.3);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+button#enviar:hover, .botao-principal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(183, 28, 28, 0.4);
+}
+
+button#enviar:active, .botao-principal:active {
+    transform: translateY(0);
 }
 
 .secao-principal h2 {
@@ -56,23 +288,7 @@
 }
 
 .botao-principal {
-    display: inline-block;
-    width: 100%;
     max-width: 320px;
-    padding: 15px 30px;
-    background: linear-gradient(90deg, var(--vermelho-escuro), var(--vermelho));
-    color: var(--branco);
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: 10px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 4px 12px rgba(183, 28, 28, 0.3);
-}
-
-.botao-principal:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(183, 28, 28, 0.4);
 }
 
 .secao-info {
@@ -104,8 +320,41 @@
     margin-top: 10px;
 }
 
+.mensagem {
+    margin-top: 20px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+    animation: aparecer 0.4s ease-out;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.sucesso {
+    background: var(--fundo-sucesso);
+    color: var(--sucesso);
+    border: 1px solid #A5D6A7;
+}
+
+.erro {
+    background: var(--fundo-erro);
+    color: var(--erro);
+    border: 1px solid #EF9A9A;
+}
+
 @media (max-width: 600px) {
-    .conteudo, .cabecalho {
+    .grid-campos {
+        grid-template-columns: 1fr;
+    }
+    .cabecalho, form, .conteudo {
         padding: 20px;
+    }
+    .opcoes-radio {
+        flex-direction: column;
+        gap: 12px;
     }
 }
