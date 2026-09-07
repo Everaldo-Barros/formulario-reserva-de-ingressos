@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Compra de Ingressos — Automação Web</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+    <div class="pagina">
+        <div class="container">
+            <header class="cabecalho">
+                <h1>Simulador — Everaldo Barros</h1>
+                <p>Simulador de reserva de ingressos — Projeto didático de automação Web</p>
+                <div class="linha-destaque"></div>
+            </header>
+
+            <form id="compraForm">
+                <section class="secao">
+                    <h2>Dados do Comprador</h2>
+                    <div class="grid-campos">
+                        <div class="campo">
+                            <label for="nome">Nome *</label>
+                            <input type="text" id="nome" name="nome" required placeholder="Seu nome">
+                        </div>
+                        <div class="campo">
+                            <label for="sobrenome">Sobrenome *</label>
+                            <input type="text" id="sobrenome" name="sobrenome" required placeholder="Seu sobrenome">
+                        </div>
+                    </div>
+                    <div class="grid-campos">
+                        <div class="campo">
+                            <label for="email">E-mail *</label>
+                            <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                        </div>
+                        <div class="campo">
+                            <label for="telefone">Telefone (com DDD)</label>
+                            <input type="tel" id="telefone" name="telefone" placeholder="Ex: 49999991234">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="secao">
+                    <h2>Jogo e Setor</h2>
+                    <div class="grid-campos">
+                        <div class="campo">
+                            <label for="jogo">Jogo *</label>
+                            <select id="jogo" name="jogo" required>
+                                <option value="">Selecione um jogo</option>
+                                <option value="fla_x_spa">Flamengo x Santos — 15/10/2026 · 16h00</option>
+                                <option value="pal_x_gre">Palmeiras x Grêmio — 18/10/2026 · 19h30</option>
+                                <option value="cor_x_bah">Corinthians x Bahia — 22/10/2026 · 21h00</option>
+                                <option value="cru_x_vas">Cruzeiro x Vasco — 25/10/2026 · 15h00</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="setor">Setor *</label>
+                            <select id="setor" name="setor" required>
+                                <option value="">Selecione o setor</option>
+                                <option value="arquibancada">Arquibancada — R$ 80,00</option>
+                                <option value="superior">Arquibancada Superior — R$ 100,00</option>
+                                <option value="cadeira">Cadeira Coberta — R$ 150,00</option>
+                                <option value="vip">Setor VIP — R$ 300,00</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="campo-pequeno">
+                        <label for="quantidade">Quantidade * (máx. 10)</label>
+                        <input type="number" id="quantidade" name="quantidade" min="1" max="10" required>
+                    </div>
+                </section>
+
+                <section class="secao">
+                    <h2>Forma de Pagamento *</h2>
+                    <div class="opcoes-radio">
+                        <label class="opcao-radio">
+                            <input type="radio" name="pagamento" value="pix" required>
+                            <span class="marcador"></span> PIX
+                        </label>
+                        <label class="opcao-radio">
+                            <input type="radio" name="pagamento" value="cartao">
+                            <span class="marcador"></span> Cartão de Crédito
+                        </label>
+                        <label class="opcao-radio">
+                            <input type="radio" name="pagamento" value="boleto">
+                            <span class="marcador"></span> Boleto Bancário
+                        </label>
+                    </div>
+                </section>
+
+                <section class="secao">
+                    <h2>Informações Adicionais</h2>
+                    <div class="campo">
+                        <label for="observacoes">Algum pedido especial?</label>
+                        <textarea id="observacoes" name="observacoes" rows="4" placeholder="Ex: necessidade de acesso, acompanhante, preferências, etc."></textarea>
+                    </div>
+                </section>
+
+                <section class="secao">
+                    <label class="caixa-confirmacao">
+                        <input type="checkbox" id="concorda" required>
+                        <span class="marcador"></span>
+                        Li e concordo com os termos de uso e política de privacidade *
+                    </label>
+                </section>
+
+                <button type="submit" id="enviar">Confirmar Compra</button>
+
+                <div id="mensagemSucesso" class="mensagem sucesso" hidden>
+                    Compra realizada com sucesso! Em breve você receberá os ingressos por e-mail.
+                </div>
+                <div id="mensagemErro" class="mensagem erro" hidden>
+                    Verifique os campos obrigatórios e tente novamente.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('compraForm');
+        const msgSucesso = document.getElementById('mensagemSucesso');
+        const msgErro = document.getElementById('mensagemErro');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            msgSucesso.hidden = true;
+            msgErro.hidden = true;
+
+            const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value);
+            const telefone = document.getElementById('telefone').value.replace(/\D/g, '');
+            const telefoneValido = telefone === '' || telefone.length >= 10;
+
+            if (emailValido && telefoneValido) {
+                msgSucesso.hidden = false;
+                form.reset();
+            } else {
+                msgErro.hidden = false;
+            }
+        });
+    </script>
+</body>
+</html>

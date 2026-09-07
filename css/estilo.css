@@ -1,0 +1,111 @@
+.container-home {
+    width: 100%;
+    max-width: 720px;
+    background: var(--branco);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    animation: surgir 0.6s ease-out;
+}
+
+.conteudo {
+    padding: 30px;
+}
+
+.secao-principal h2 {
+    font-size: 1.4rem;
+    color: var(--preto);
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.secao-principal > p {
+    font-size: 1rem;
+    color: var(--cinza-escuro);
+    margin-bottom: 25px;
+    line-height: 1.7;
+}
+
+.destaque {
+    background: #F8F8F8;
+    border-left: 4px solid var(--vermelho);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.destaque h3 {
+    font-size: 1.05rem;
+    color: var(--preto);
+    margin-bottom: 12px;
+}
+
+.destaque ul {
+    padding-left: 20px;
+}
+
+.destaque li {
+    color: var(--cinza-escuro);
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.botoes {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.botao-principal {
+    display: inline-block;
+    width: 100%;
+    max-width: 320px;
+    padding: 15px 30px;
+    background: linear-gradient(90deg, var(--vermelho-escuro), var(--vermelho));
+    color: var(--branco);
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(183, 28, 28, 0.3);
+}
+
+.botao-principal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(183, 28, 28, 0.4);
+}
+
+.secao-info {
+    background: #FFF0F0;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #FFCDD2;
+    margin-top: 20px;
+}
+
+.secao-info h3 {
+    font-size: 1rem;
+    color: var(--vermelho-escuro);
+    margin-bottom: 8px;
+}
+
+.secao-info p {
+    color: var(--cinza-escuro);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.rodape {
+    background: var(--preto);
+    color: #CCCCCC;
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    .conteudo, .cabecalho {
+        padding: 20px;
+    }
+}
