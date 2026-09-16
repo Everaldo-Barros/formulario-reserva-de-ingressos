@@ -1,0 +1,25 @@
+{
+  "name": "formulario-reserva-de-ingressos",
+  "version": "1.0.0",
+  "description": "Este repositório contem exercícios para fins didáticos em automações Web.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Everaldo-Barros/formulario-reserva-de-ingressos.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Everaldo-Barros/formulario-reserva-de-ingressos/issues"
+  },
+  "homepage": "https://github.com/Everaldo-Barros/formulario-reserva-de-ingressos#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "playwright": "^1.63.0"
+  }
+}
