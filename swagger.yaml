@@ -1,0 +1,228 @@
+openapi: 3.0.0
+info:
+  title: API de Reserva de Ingressos
+  description: |
+    API didática para simulação de reserva de ingressos.
+    Acessa o formulário, valida todos os campos e retorna confirmação.
+  version: 1.1.0
+  contact:
+    name: Everaldo Barros
+    url: https://everaldo-barros.github.io/formulario-reserva-de-ingressos/
+
+servers:
+  - url: http://localhost:3000
+    description: Servidor Local
+
+tags:
+  - name: Formulário
+    description: Acesso e envio do formulário de reserva
+
+paths:
+  /api/acessar-formulario:
+    get:
+      tags:
+        - Formulário
+      summary: Acessa e abre a página do formulário
+      description: Navega até a página inicial, clica em "Acessar Formulário" e retorna a página carregada.
+      responses:
+        '200':
+          description: Formulário acessado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sucesso:
+                    type: boolean
+                    example: true
+                  mensagem:
+                    type: string
+                    example: "Formulário acessado com sucesso"
+                  urlOrigem:
+                    type: string
+                    example: "https://everaldo-barros.github.io/formulario-reserva-de-ingressos/"
+                  urlDestino:
+                    type: string
+                    example: "https://everaldo-barros.github.io/formulario-reserva-de-ingressos/formulario.html"
+                  camposEsperados:
+                    type: array
+                    items:
+                      type: string
+                  timestamp:
+                    type: string
+                    format: date-time
+        '500':
+          description: Erro ao acessar o formulário
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sucesso:
+                    type: boolean
+                    example: false
+                  erro:
+                    type: string
+                  tipo:
+                    type: string
+
+  /api/enviar-formulario:
+    post:
+      tags:
+        - Formulário
+      summary: Envia e valida os dados da reserva
+      description: Recebe todos os campos reais do formulário, valida regras e retorna confirmação.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nome
+                - sobrenome
+                - email
+                - telefone
+                - jogo
+                - setor
+                - quantidade
+                - formaPagamento
+              properties:
+                nome:
+                  type: string
+                  minLength: 2
+                  example: "Everaldo"
+                  description: Nome (mínimo 2 caracteres)
+                sobrenome:
+                  type: string
+                  minLength: 2
+                  example: "Barros"
+                  description: Sobrenome (mínimo 2 caracteres)
+                email:
+                  type: string
+                  format: email
+                  example: "everaldo@email.com"
+                  description: E-mail válido
+                telefone:
+                  type: string
+                  example: "49999991234"
+                  description: Telefone com DDD (10 ou 11 dígitos)
+                jogo:
+                  type: string
+                  enum:
+                    - Flamengo x Santos — 15/10/2026 · 16h00
+                    - Palmeiras x Grêmio — 18/10/2026 · 19h30
+                    - Corinthians x Bahia — 22/10/2026 · 21h00
+                    - Cruzeiro x Vasco — 25/10/2026 · 15h00
+                  example: "Flamengo x Santos — 15/10/2026 · 16h00"
+                  description: Jogo escolhido
+                setor:
+                  type: string
+                  enum:
+                    - Arquibancada — R$ 80,00
+                    - Arquibancada Superior — R$ 100,00
+                    - Cadeira Coberta — R$ 150,00
+                    - Setor VIP — R$ 300,00
+                  example: "Arquibancada — R$ 80,00"
+                  description: Setor escolhido
+                quantidade:
+                  type: integer
+                  minimum: 1
+                  maximum: 10
+                  example: 2
+                  description: Quantidade de ingressos (1 a 10)
+                formaPagamento:
+                  type: string
+                  enum:
+                    - PIX
+                    - Cartão de Crédito
+                    - Boleto Bancário
+                  example: "PIX"
+                  description: Forma de pagamento
+                pedidoEspecial:
+                  type: string
+                  nullable: true
+                  example: "Preferência por assento no corredor"
+                  description: Observação adicional (opcional)
+
+      responses:
+        '200':
+          description: Reserva realizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sucesso:
+                    type: boolean
+                    example: true
+                  mensagem:
+                    type: string
+                    example: "Reserva realizada com sucesso!"
+                  dadosConfirmados:
+                    type: object
+                    properties:
+                      nomeCompleto:
+                        type: string
+                        example: "Everaldo Barros"
+                      email:
+                        type: string
+                        example: "everaldo@email.com"
+                      telefone:
+                        type: string
+                        example: "49999991234"
+                      jogo:
+                        type: string
+                        example: "Flamengo x Santos — 15/10/2026 · 16h00"
+                      setor:
+                        type: string
+                        example: "Arquibancada — R$ 80,00"
+                      quantidade:
+                        type: integer
+                        example: 2
+                      formaPagamento:
+                        type: string
+                        example: "PIX"
+                      valorTotal:
+                        type: number
+                        example: 160.00
+                  reserva:
+                    type: object
+                    properties:
+                      codigo:
+                        type: string
+                        example: "RES-1789863532398"
+                      dataHora:
+                        type: string
+                        format: date-time
+                      mensagem:
+                        type: string
+                        example: "Ingressos reservados. Confirmação enviada por e-mail."
+
+        '400':
+          description: Erro de validação em um ou mais campos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sucesso:
+                    type: boolean
+                    example: false
+                  mensagem:
+                    type: string
+                    example: "Validação falhou. Verifique os campos abaixo."
+                  totalErros:
+                    type: integer
+                    example: 2
+                  erros:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        campo:
+                          type: string
+                          example: "quantidade"
+                        mensagem:
+                          type: string
+                          example: "Quantidade deve ser entre 1 e 10"

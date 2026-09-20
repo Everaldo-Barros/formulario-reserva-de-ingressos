@@ -20,6 +20,8 @@
   "homepage": "https://github.com/Everaldo-Barros/formulario-reserva-de-ingressos#readme",
   "dependencies": {
     "express": "^5.2.1",
-    "playwright": "^1.63.0"
+    "playwright": "^1.63.0",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
   }
 }
